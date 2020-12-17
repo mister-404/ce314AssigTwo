@@ -2,19 +2,28 @@
 chapagain code found here http://blog.chapagain.com.np/python-nltk-sentiment-analysis-on-movie-reviews-natural-language-processing-nlp/?fbclid=IwAR3I2z_BbLSsLxK_qw8B-XTlRKBar2vzaAgd-0QPKUoWpjQTYD-m0a3kkT4
 '''
 
+from random import shuffle
 from nltk.corpus import movie_reviews
 
-# Total reviews
-print(len(movie_reviews.fileids()))  # Output: 2000
+documents = []
 
-# Review categories
-print(movie_reviews.categories())  # Output: [u'neg', u'pos']
+for category in movie_reviews.categories():
+    for fileid in movie_reviews.fileids(category):
+        #documents.append((list(movie_reviews.words(fileid)), category))
+        documents.append((movie_reviews.words(fileid), category))
 
-# Total positive reviews
-print(len(movie_reviews.fileids('pos')))  # Output: 1000
+print(len(documents))  # Output: 2000
 
-# Total negative reviews
-print(len(movie_reviews.fileids('neg')))  # Output: 1000
+# x = [str(item) for item in documents[0][0]]
+# print (x)
 
-positive_review_file = movie_reviews.fileids('pos')[0]
-print(positive_review_file)  # Output: pos/cv000_29590.txt
+# print first tuple
+print(documents[0])
+'''
+Output:
+ 
+(['plot', ':', 'two', 'teen', 'couples', 'go', ...], 'neg')
+'''
+
+# shuffle the document list
+shuffle(documents)
