@@ -2,7 +2,8 @@ from nltk.corpus import stopwords, movie_reviews
 import re
 from CommonNamesFinder import CommonNamesFinder
 
-names = CommonNamesFinder().names
+NAMES = CommonNamesFinder().names
+ENGLISH_STOPWORDS = stopwords.words('english')
 
 
 class WordTools:
@@ -17,12 +18,11 @@ class WordTools:
     @classmethod
     def removeUneeded(cls, words):
         cleanedWords = []
-        ENGLISH_STOPWORDS = stopwords.words('english')
         for word in words:
             isAStopWord = word in ENGLISH_STOPWORDS
             justPunctuation = re.sub(r"^(\W+|\d+)$", "", word) == ""
-            isAName = word in names
+            isAName = word in NAMES
 
-            if not (justPunctuation or isAStopWord or isAName):
+            if not(justPunctuation or isAStopWord or isAName):
                 cleanedWords.append(word)
         return cleanedWords

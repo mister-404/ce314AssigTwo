@@ -1,15 +1,17 @@
-'''
-Loads in the most common names from the https://www.ssa.gov/oact/babynames/limits.html
-'''
+import csv
+
 namesDataPath = "./res/commonNames.txt"
 
 
 class CommonNamesFinder:
     def __init__(self):
+        '''
+        Loads in the most common names from the
+        https://www.ssa.gov/oact/babynames/limits.html
+        '''
         self.names = []
-        namesFile = open(namesDataPath, 'r')
-        lines = namesFile.readlines()
 
-        for line in lines:
-            splitLine = line.split(",")
-            self.names.append(splitLine[0])
+        with open(namesDataPath, 'r') as namesFile:
+            reader = csv.reader(namesFile)
+            for row in reader:
+                self.names.append(row[0].lower())

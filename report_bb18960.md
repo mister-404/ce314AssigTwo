@@ -4,11 +4,17 @@
 
 ## Text Classification
 
-## Preprocessing
+This is aided heavily by a lot of nltk (natural language toolkit - found here: https://www.nltk.org/) functionality.
+
+
+
+
+
+## Pre-processing
 
 ### Removal of common first names
 
-Movie reviews may find it necessary to use an actor's first name. A name isn't usually a positive or negative thing and as such, it's not included in this modelling.
+Movie reviews may find it necessary to use an actor's first name. A name isn't usually a positive or negative thing and as such, it's not included in this modelling. I did this because I ran an early model and noticed that the word **elliot** was a common occurrence and I found that to be pretty unnecessary.
 
 ### Stop words
 
