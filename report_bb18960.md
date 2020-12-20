@@ -6,6 +6,10 @@
 
 ## Preprocessing
 
+### Removal of common first names
+
+Movie reviews may find it necessary to use an actor's first name. A name isn't usually a positive or negative thing and as such, it's not included in this modelling.
+
 ### Stop words
 
 A stop word is a word that helps human readability and comprehension of a sentence but is realistically often exorbitant when it comes to natural language engineering. For example, a common stop word is **the**. The sentence "the girl walked merrily along" is pretty much just as useful in the problem we face on this assignment as "girl walked merrily along". One could even argue that along is excessive.

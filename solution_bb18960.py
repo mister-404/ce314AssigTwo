@@ -1,5 +1,6 @@
 from random import shuffle
 from nltk import NaiveBayesClassifier, classify
+from nltk.metrics.scores import (precision, recall)
 from FeatureSet import FeatureSet
 from WordTools import WordTools
 
@@ -21,6 +22,8 @@ trainSet = posReviewSet[DIVISION_PROPORTION:] + \
 
 classifier = NaiveBayesClassifier.train(trainSet)
 
-print("Accuracy of this model", classify.accuracy(classifier, testSet))
+print("Accuracy of this model:", classify.accuracy(classifier, testSet))
+print("Precision:", precision(trainSet, testSet))
+print("Recall:", recall(trainSet, testSet))
 
 print(classifier.show_most_informative_features(10))
