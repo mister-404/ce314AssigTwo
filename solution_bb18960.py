@@ -26,19 +26,19 @@ testSet = posReviewSet[:DIVISION_PROPORTION] + \
 trainSet = posReviewSet[DIVISION_PROPORTION:] + \
     negReviewSet[DIVISION_PROPORTION:]  # makes a train set that's 90 percent the size of the corpus
 
-classifier = NaiveBayesClassifier.train(trainSet)
-
 referenceSets = collections.defaultdict(set)
 testingSets = collections.defaultdict(set)
 
-for i, (feats, label) in enumerate(testSet):
-    referenceSets[label].add(i)
-    observed = classifier.classify(feats)
+naiveBayesClassifier = NaiveBayesClassifier.train(trainSet)
+
+for i, (features, name) in enumerate(testSet):
+    referenceSets[name].add(i)
+    observed = naiveBayesClassifier.classify(features)
     testingSets[observed].add(i)
 
 ROUNDING_ACCURACY = 3
 accVal = round(
-    classify.accuracy(classifier, testSet), ROUNDING_ACCURACY)
+    classify.accuracy(naiveBayesClassifier, testSet), ROUNDING_ACCURACY)
 precisionVal = round(
     precision(referenceSets['pos'], testingSets['pos']), ROUNDING_ACCURACY)
 recallVal = round(
@@ -56,8 +56,6 @@ csvFields = [accVal, precisionVal, recallVal, fMeasureVal]
 with open(RESULT_FILE_LOC, 'a', newline='') as resultsFile:
     writer = csv.writer(resultsFile)
     writer.writerow(csvFields)
-
-print(classifier.show_most_informative_features(10))
 
 resAnalyzer = ResultsAnalyser(RESULT_FILE_LOC)
 stats = resAnalyzer.getAvgs()
