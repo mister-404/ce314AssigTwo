@@ -1,9 +1,14 @@
 import collections
+from os import stat
 from random import shuffle
 from nltk import NaiveBayesClassifier, classify
 from nltk.metrics.scores import (precision, recall)
 from FeatureSet import FeatureSet
 from WordTools import WordTools
+from ResultsAnalyser import ResultsAnalyser
+import csv
+
+RESULT_FILE_LOC = "./results.csv"
 
 negReviews = WordTools.getReviews('neg')
 posReviews = WordTools.getReviews('pos')
@@ -12,6 +17,7 @@ negReviewSet = FeatureSet(negReviews, 'neg').words
 posReviewSet = FeatureSet(posReviews, 'pos').words
 
 DIVISION_PROPORTION = (len(negReviewSet) + len(posReviewSet)) // 10
+# takes 10 percent of size of corpus
 
 shuffle(posReviewSet)
 shuffle(negReviewSet)
@@ -23,7 +29,6 @@ trainSet = posReviewSet[DIVISION_PROPORTION:] + \
 
 classifier = NaiveBayesClassifier.train(trainSet)
 
-print("Accuracy:", classify.accuracy(classifier, testSet))
 
 refsets = collections.defaultdict(set)
 testsets = collections.defaultdict(set)
@@ -33,12 +38,32 @@ for i, (feats, label) in enumerate(testSet):
     observed = classifier.classify(feats)
     testsets[observed].add(i)
 
-precisionVal = precision(refsets['pos'], testsets['pos'])
-recallVal = recall(refsets['pos'], testsets['pos'])
-fMeasureVal = (2 * precisionVal * recallVal) / (precisionVal + recallVal)
+ROUNDING_ACCURACY = 3
+accVal = round(classify.accuracy(classifier, testSet), ROUNDING_ACCURACY)
+precisionVal = round(
+    precision(refsets['pos'], testsets['pos']), ROUNDING_ACCURACY)
+recallVal = round(recall(refsets['pos'], testsets['pos']), ROUNDING_ACCURACY)
+fMeasureVal = round((2 * precisionVal * recallVal) /
+                    (precisionVal + recallVal), ROUNDING_ACCURACY)
 
-print("Precision:", precisionVal)
-print("Recall:", recallVal)
-print("F-Score:", fMeasureVal)
+print("Info about this model:-")
+print("\tAccuracy:", accVal)
+print("\tPrecision:", precisionVal)
+print("\tRecall:", recallVal)
+print("\tF-Score:", fMeasureVal)
+
+csvFields = [accVal, precisionVal, recallVal, fMeasureVal]
+with open(RESULT_FILE_LOC, 'a', newline='') as resultsFile:
+    writer = csv.writer(resultsFile)
+    writer.writerow(csvFields)
 
 print(classifier.show_most_informative_features(10))
+
+resAnalyzer = ResultsAnalyser(RESULT_FILE_LOC)
+stats = resAnalyzer.getAvgs()
+
+print("Average (mean) findings from previous and current model:-")
+print("\tAccuracy:", stats[0])
+print("\tPrecision:", stats[1])
+print("\tRecall:", stats[2])
+print("\tF-Score:", stats[3])
