@@ -24,6 +24,6 @@ class WordTools:
             justPunctuation = re.sub(r"^(\W+|\d+)$", "", word) == ""
             isAName = word in names
 
-            if not justPunctuation and not isAStopWord and not isAName:
+            if not (justPunctuation or isAStopWord or isAName):
                 cleanedWords.append(word)
         return cleanedWords
