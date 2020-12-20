@@ -28,19 +28,21 @@ trainSet = posReviewSet[DIVISION_PROPORTION:] + \
 
 classifier = NaiveBayesClassifier.train(trainSet)
 
-refsets = collections.defaultdict(set)
-testsets = collections.defaultdict(set)
+referenceSets = collections.defaultdict(set)
+testingSets = collections.defaultdict(set)
 
 for i, (feats, label) in enumerate(testSet):
-    refsets[label].add(i)
+    referenceSets[label].add(i)
     observed = classifier.classify(feats)
-    testsets[observed].add(i)
+    testingSets[observed].add(i)
 
 ROUNDING_ACCURACY = 3
-accVal = round(classify.accuracy(classifier, testSet), ROUNDING_ACCURACY)
+accVal = round(
+    classify.accuracy(classifier, testSet), ROUNDING_ACCURACY)
 precisionVal = round(
-    precision(refsets['pos'], testsets['pos']), ROUNDING_ACCURACY)
-recallVal = round(recall(refsets['pos'], testsets['pos']), ROUNDING_ACCURACY)
+    precision(referenceSets['pos'], testingSets['pos']), ROUNDING_ACCURACY)
+recallVal = round(
+    recall(referenceSets['pos'], testingSets['pos']), ROUNDING_ACCURACY)
 fMeasureVal = round((2 * precisionVal * recallVal) /
                     (precisionVal + recallVal), ROUNDING_ACCURACY)
 

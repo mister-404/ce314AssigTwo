@@ -4,7 +4,7 @@
 
 ## Text Classification
 
-This is aided heavily by a lot of nltk (natural language toolkit - found here: https://www.nltk.org/) functionality.
+This is aided heavily by a lot of nltk (natural language toolkit - found here: https://www.nltk.org) functionality.
 
 
 
@@ -44,7 +44,7 @@ The same could realistically be said for most numbers. A random number appearing
 
 ## Feature Selection
 
-I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as "outstanding" and "ground-breaking" whereas we would expect to find negative reviews to be flavoured with "rubbish" and "abysmal". I decided to set out and find the most commonly occurring negative words.
+I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as "outstanding" and "ground-breaking" whereas we would expect to find negative reviews to be flavoured with "rubbish" and "abysmal".
 
 
 
@@ -52,7 +52,18 @@ I wanted to trawl the negative reviews and find what the essence of a negative r
 
 The stats that we find relevant in this project are the accuracy, precision, recall and f-measure.
 
+### The stats
 
+- **accuracy**
+  - Found by passing the NaiveBayesClassifier object and the test set to nltk.classify.accuracy 
+- **precision**
+  - Calculated by using nltk.metrics.scores.precision and passing it the positive reviews from the reference sets and the testingSets.
+- **recall**
+  - Calculated by using nltk.metrics.scores.recall and passing it the positive reviews from the reference sets and the testingSets.
+- **f-measure**
+  - Found by taking (2 * precision * recall) / (precision + recall)
+
+### Analysis
 
 At the end of each program run in **solution_bb18960.py**, a custom ResultsAnalyser object goes through all the results that have come before (and the current model) and informs the user about the mean scoring so far. On my last run we saw the following:-
 
