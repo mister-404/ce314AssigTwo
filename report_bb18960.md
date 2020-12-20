@@ -8,11 +8,11 @@ This is aided heavily by a lot of nltk (natural language toolkit - found here: h
 
 
 
-A NaiveBayesClassifier object is generated and trained using a subset of 90 percent of the movie_reviews corpus. I then gets tested on 10 percent of the corpus.
+A NaiveBayesClassifier object is generated and trained using a subset of 90 percent of the movie_reviews corpus. It then gets tested on 10 percent of the corpus.
 
 
 
-The test and training set gets randomized (shuffled) before the NaiveBayesClassifier gets trained and as such, we can expect different results each time the program is run.
+The test and training set gets randomised (shuffled) before the NaiveBayesClassifier gets trained and as such, we can expect different results each time the program is run.
 
 ## Pre-processing
 
@@ -44,7 +44,7 @@ The same could realistically be said for most numbers. A random number appearing
 
 ## Feature Selection
 
-I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as "outstanding" and "ground-breaking" whereas we would expect to find negative reviews to be flavoured with "rubbish" and "abysmal".
+I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as **outstanding** and **ground-breaking** whereas we would expect to find negative reviews to be flavoured with **rubbish** and **abysmal**.
 
 
 
@@ -55,12 +55,16 @@ The stats that we find relevant in this project are the accuracy, precision, rec
 ### The stats
 
 - **accuracy**
+  - Finds out how often the classifier is correct in its assessment of tone (either positive or negative) based on what it actually was vs what the classifier thought it was
   - Found by passing the NaiveBayesClassifier object and the test set to nltk.classify.accuracy 
 - **precision**
+  - Finds out how many items were identified as relevant out of all the finds
   - Calculated by using nltk.metrics.scores.precision and passing it the positive reviews from the reference sets and the testingSets.
 - **recall**
+  - Fraction of how many relevant finds were made
   - Calculated by using nltk.metrics.scores.recall and passing it the positive reviews from the reference sets and the testingSets.
 - **f-measure**
+  - A combination of recall and precision designed to represent how much relevancy a classifier was able to achieve
   - Found by taking (2 * precision * recall) / (precision + recall)
 
 ### Analysis
