@@ -38,10 +38,10 @@ testingSets = collections.defaultdict(set)
 
 naiveBayesClassifier = NaiveBayesClassifier.train(trainSet)
 
-for i, (features, name) in enumerate(testSet):
-    referenceSets[name].add(i)
-    observed = naiveBayesClassifier.classify(features)
-    testingSets[observed].add(i)
+for count, (features, name) in enumerate(testSet):
+    givenClassification = naiveBayesClassifier.classify(features)
+    testingSets[givenClassification].add(count)
+    referenceSets[name].add(count)
 
 ROUNDING_ACCURACY = 3
 accVal = round(
@@ -50,8 +50,8 @@ precisionVal = round(
     precision(referenceSets['pos'], testingSets['pos']), ROUNDING_ACCURACY)
 recallVal = round(
     recall(referenceSets['pos'], testingSets['pos']), ROUNDING_ACCURACY)
-fMeasureVal = round((2 * precisionVal * recallVal) /
-                    (precisionVal + recallVal), ROUNDING_ACCURACY)
+fMeasureVal = round(
+    (2 * precisionVal * recallVal) / (precisionVal + recallVal), ROUNDING_ACCURACY)
 
 print("Info about this model:-")
 print("\tAccuracy:", accVal)
