@@ -1,3 +1,10 @@
+'''
+Looks at a given results file and then
+finds averages on the data items
+
+bb18960
+'''
+
 import csv
 
 

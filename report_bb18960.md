@@ -12,7 +12,7 @@ A NaiveBayesClassifier object is generated and trained using a subset of 90 perc
 
 
 
-The test and training set gets randomized (shuffled) before the NaiveBayesClassifier gets trained and as such, we can expect different results each time.
+The test and training set gets randomized (shuffled) before the NaiveBayesClassifier gets trained and as such, we can expect different results each time the program is run.
 
 ## Pre-processing
 

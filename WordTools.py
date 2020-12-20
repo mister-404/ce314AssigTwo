@@ -1,3 +1,10 @@
+'''
+Provides tooling for the different word associated
+tasks that need to be carried out in this project
+
+bb18960
+'''
+
 from nltk.corpus import stopwords, movie_reviews
 from nltk import ngrams
 import re

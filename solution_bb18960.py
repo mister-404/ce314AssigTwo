@@ -1,3 +1,10 @@
+'''
+Provides a solution to the CE314 Assignment Two problem where
+the goal is to design a text classifier in python for movie reviews
+
+bb18960
+'''
+
 import collections
 from random import shuffle
 from nltk import NaiveBayesClassifier, classify
