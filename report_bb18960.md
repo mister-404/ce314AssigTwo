@@ -2,16 +2,7 @@
 
 ### by bb18960
 
-
-
-1. NOT SURE WHAT THIS BIT MEANS YET
-2. 
-3. I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as "outstanding" and "groundbreaking" whereas we would expect to find negative reviews to be flavoured with "rubbish" and "abysmal". I decided to set out and find the most commonly occurring negative words.
-4. NOT SURE WHAT THIS BIT MEANS YET
-
-
-
-
+## Text Classification
 
 ## Preprocessing
 
@@ -27,8 +18,6 @@ A problem that can arise when removing stop words is that you lose context that 
 
 We remove the stop words defined at nltk.corpus.stopwords.words('english').
 
-
-
 ### Punctuation and numbers
 
 We also need to make sure that no punctuation slips through either. That's because tone/opinion is highly complex to gauge off of punctuation in computer programming.
@@ -36,3 +25,13 @@ We also need to make sure that no punctuation slips through either. That's becau
 
 
 The same could realistically be said for most numbers. A random number appearing in an article like 3 in: "The 3 candles burn all day" asks the question - how useful is that 3? I've made the executive decision to say that it isn't useful and so all numbers get removed except if they talk about a decade ie the 90s. This is because the 90s (for example) could have connotations of "cheesy" when it comes to movies. This might indicate a negative review and as such I find it relevant to stay.
+
+
+
+## Feature Selection
+
+I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as "outstanding" and "groundbreaking" whereas we would expect to find negative reviews to be flavoured with "rubbish" and "abysmal". I decided to set out and find the most commonly occurring negative words.
+
+
+
+## Evaluation
