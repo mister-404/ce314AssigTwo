@@ -1,11 +1,15 @@
+from random import shuffle
+from nltk import NaiveBayesClassifier
+from nltk import classify
 import string
 from nltk.corpus import stopwords, movie_reviews
+import re
 
 
-class WordFinder:
+class WordTools:
     @classmethod
     def bagOfWords(cls, words):
-        return dict([word, True] for word in WordFinder.removeUneeded(words))
+        return dict([word, True] for word in WordTools.removeUneeded(words))
 
     @classmethod
     def getReviews(cls, reviewOpinion):
@@ -13,27 +17,42 @@ class WordFinder:
 
     @classmethod
     def removeUneeded(cls, words):
-        # todo: look for if a word is entirely comprised of punctuation (not a useful word to have)
+        cleanedWords = []
         ENGLISH_STOPWORDS = stopwords.words('english')
-        return [word for word in words if (word not in string.punctuation) and (word not in ENGLISH_STOPWORDS)]
+        for word in words:
+            isAStopWord = word in ENGLISH_STOPWORDS
+            justPunctuation = re.sub(r"^(\W+|\d+)$", "", word) == ""
+
+            if not justPunctuation and not isAStopWord:
+                cleanedWords.append(word)
+        return cleanedWords
 
 
 class FeatureSet:
-    def __init__(self, reviews):
-        self.words = [WordFinder.bagOfWords(words) for words in reviews]
+    def __init__(self, reviews, reviewOpinion):
+        self.words = [(WordTools.bagOfWords(words), reviewOpinion)
+                      for words in reviews]
 
 
-negReviews = WordFinder.getReviews('neg')
-posReviews = WordFinder.getReviews('pos')
+negReviews = WordTools.getReviews('neg')
+posReviews = WordTools.getReviews('pos')
 
-negReviewSet = FeatureSet(negReviews).words
-posReviewSet = FeatureSet(posReviews).words
+negReviewSet = FeatureSet(negReviews, 'neg').words
+posReviewSet = FeatureSet(posReviews, 'pos').words
 
-DIVISION_PROPORTION = (len(negReviewSet)+len(posReviewSet)) // 10
+DIVISION_PROPORTION = (len(negReviewSet) + len(posReviewSet)) // 10
+
+shuffle(posReviewSet)
+shuffle(negReviewSet)
 
 testSet = posReviewSet[:DIVISION_PROPORTION] + \
     negReviewSet[:DIVISION_PROPORTION]
 trainSet = posReviewSet[DIVISION_PROPORTION:] + \
     negReviewSet[DIVISION_PROPORTION:]
 
-# negativeReviewSet = FeatureSet()
+classifier = NaiveBayesClassifier.train(trainSet)
+
+accuracy = classify.accuracy(classifier, testSet)
+print(accuracy)  # Output: 0.7325
+
+print(classifier.show_most_informative_features(10))
