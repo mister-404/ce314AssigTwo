@@ -8,7 +8,11 @@ This is aided heavily by a lot of nltk (natural language toolkit - found here: h
 
 
 
-A NaiveBayesClassifier object is generated and trained using a subset of 
+A NaiveBayesClassifier object is generated and trained using a subset of 90 percent of the movie_reviews corpus. I then gets tested on 10 percent of the corpus.
+
+
+
+The test and training set gets randomized (shuffled) before the NaiveBayesClassifier gets trained and as such, we can expect different results each time.
 
 ## Pre-processing
 
@@ -40,9 +44,16 @@ The same could realistically be said for most numbers. A random number appearing
 
 ## Feature Selection
 
-I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as "outstanding" and "groundbreaking" whereas we would expect to find negative reviews to be flavoured with "rubbish" and "abysmal". I decided to set out and find the most commonly occurring negative words.
+I wanted to trawl the negative reviews and find what the essence of a negative review is and the same for positive. There are certain words that lend themselves to a particularly upbeat positive position such as "outstanding" and "ground-breaking" whereas we would expect to find negative reviews to be flavoured with "rubbish" and "abysmal". I decided to set out and find the most commonly occurring negative words.
 
 
 
 ## Evaluation
 
+The stats that we find relevant in this project are the accuracy, precision, recall and f-measure.
+
+
+
+At the end of each program run in **solution_bb18960.py**, a custom ResultsAnalyser object goes through all the results that have come before (and the current model) and informs the user about the mean scoring so far. On my last run we saw the following:-
+
+![Stats image](./imgs/stats.PNG)

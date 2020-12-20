@@ -1,5 +1,4 @@
 import collections
-from os import stat
 from random import shuffle
 from nltk import NaiveBayesClassifier, classify
 from nltk.metrics.scores import (precision, recall)
@@ -28,7 +27,6 @@ trainSet = posReviewSet[DIVISION_PROPORTION:] + \
     negReviewSet[DIVISION_PROPORTION:]  # makes a train set that's 90 percent the size of the corpus
 
 classifier = NaiveBayesClassifier.train(trainSet)
-
 
 refsets = collections.defaultdict(set)
 testsets = collections.defaultdict(set)
@@ -62,7 +60,7 @@ print(classifier.show_most_informative_features(10))
 resAnalyzer = ResultsAnalyser(RESULT_FILE_LOC)
 stats = resAnalyzer.getAvgs()
 
-print("Average (mean) findings from previous and current model:-")
+print("Average (mean) findings from previous (and current) models:-")
 print("\tAccuracy:", stats[0])
 print("\tPrecision:", stats[1])
 print("\tRecall:", stats[2])
