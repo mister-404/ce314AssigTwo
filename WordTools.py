@@ -1,4 +1,3 @@
-import string
 from nltk.corpus import stopwords, movie_reviews
 import re
 from CommonNamesFinder import CommonNamesFinder
