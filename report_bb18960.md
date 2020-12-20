@@ -8,7 +8,7 @@ This is aided heavily by a lot of nltk (natural language toolkit - found here: h
 
 
 
-
+A NaiveBayesClassifier object is generated and trained using a subset of 
 
 ## Pre-processing
 

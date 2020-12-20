@@ -16,16 +16,16 @@ posReviews = WordTools.getReviews('pos')
 negReviewSet = FeatureSet(negReviews, 'neg').words
 posReviewSet = FeatureSet(posReviews, 'pos').words
 
-DIVISION_PROPORTION = (len(negReviewSet) + len(posReviewSet)) // 10
-# takes 10 percent of size of corpus
+DIVISION_PROPORTION = (len(negReviewSet) + len(posReviewSet)) // 20
+# takes 20 percent of size of corpus
 
 shuffle(posReviewSet)
 shuffle(negReviewSet)
 
 testSet = posReviewSet[:DIVISION_PROPORTION] + \
-    negReviewSet[:DIVISION_PROPORTION]
+    negReviewSet[:DIVISION_PROPORTION]  # makes a test set that's 10 percent the size of the corpus
 trainSet = posReviewSet[DIVISION_PROPORTION:] + \
-    negReviewSet[DIVISION_PROPORTION:]
+    negReviewSet[DIVISION_PROPORTION:]  # makes a train set that's 90 percent the size of the corpus
 
 classifier = NaiveBayesClassifier.train(trainSet)
 
